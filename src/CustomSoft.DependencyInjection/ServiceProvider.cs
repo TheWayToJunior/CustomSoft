@@ -2,7 +2,7 @@
 
 namespace CustomSoft.DependencyInjection
 {
-    internal class ServiceProvider : IServiceProvider
+    public class ServiceProvider : IServiceProvider
     {
         private readonly IDictionary<Type, IDependence> _dependences;
 
@@ -13,13 +13,18 @@ namespace CustomSoft.DependencyInjection
 
         public T GetService<T>()
         {
-            if (!_dependences.TryGetValue(typeof(T), out var model))
+            return (T)(GetService(typeof(T)) ?? throw new Exception());
+        }
+
+        public object? GetService(Type type)
+        {
+            if (!_dependences.TryGetValue(type, out var model))
             {
                 /// TODO: Create a suitable exception
                 throw new Exception();
             }
 
-            return (T)(model.GetInstance(this) ?? throw new Exception());
+            return model.GetInstance(this);
         }
     }
 }

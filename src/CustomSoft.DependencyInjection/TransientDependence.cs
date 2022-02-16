@@ -2,18 +2,21 @@
 
 namespace CustomSoft.DependencyInjection
 {
-    internal class TransientDependence : IDependence
+    public class TransientDependence : IDependence
     {
-        public TransientDependence(Type type)
+        private readonly IDependencyResolver _resolver;
+
+        public TransientDependence(Type type, IDependencyResolver resolver)
         {
             Type = type;
+            _resolver = resolver;
         }
 
         public Type Type { get; }
 
         public object? GetInstance(IServiceProvider serviceProvider)
         {
-            return Activator.CreateInstance(Type);
+            return _resolver.Resolve(Type, serviceProvider);
         }
     }
 }
