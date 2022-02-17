@@ -98,5 +98,27 @@ namespace CustomSoft.DependencyInjection.Tests
             Assert.NotNull(complexService.Service);
             Assert.IsType<SimpleTestService>(complexService.Service);
         }
+
+        [Fact]
+        public void GetService_AddSingletonIComplexTestService_ResolveComplexDependency()
+        {
+            /// Arrange
+            IServiceProviderBuilder builder = new ServiceProviderBuilder();
+
+            IServiceProvider provider = builder
+                .AddSingleton<ISimpleTestService, SimpleTestService>()
+                .AddSingleton<IComplexTestService, ComplexTestService>()
+                .Build();
+
+            /// Act
+            var complexService = provider.GetService<IComplexTestService>();
+
+            /// Assert
+            Assert.NotNull(complexService);
+            Assert.IsType<ComplexTestService>(complexService);
+
+            Assert.NotNull(complexService.Service);
+            Assert.IsType<SimpleTestService>(complexService.Service);
+        }
     }
 }

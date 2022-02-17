@@ -27,11 +27,25 @@ namespace CustomSoft.DependencyInjection
             return this;
         }
 
+        public IServiceProviderBuilder AddTransient<TAbstr, TImpl>()
+        {
+            _dependences.Add(typeof(TAbstr), new TransientDependence(typeof(TImpl), _resolver));
+            
+            return this;
+        }
+
         public IServiceProviderBuilder AddSingleton<T>()
         {
             Type type = typeof(T);
 
             _dependences.Add(type, new SingletonDependence(type, _resolver));
+
+            return this;
+        }
+
+        public IServiceProviderBuilder AddSingleton<TAbstr, TImpl>()
+        {
+            _dependences.Add(typeof(TAbstr), new TransientDependence(typeof(TImpl), _resolver));
 
             return this;
         }

@@ -1,16 +1,25 @@
 ﻿namespace CustomSoft.DependencyInjection.Tests
 {
-    internal class SimpleTestService
+    internal interface ISimpleTestService
     {
     }
 
-    internal class ComplexTestService
+    internal class SimpleTestService : ISimpleTestService
     {
-        public ComplexTestService(SimpleTestService service)
+    }
+
+    internal interface IComplexTestService
+    {
+        ISimpleTestService Service { get; }
+    }
+
+    internal class ComplexTestService : IComplexTestService
+    {
+        public ComplexTestService(ISimpleTestService service)
         {
             Service = service;
         }
 
-        public SimpleTestService Service { get; }
+        public ISimpleTestService Service { get; }
     }
 }

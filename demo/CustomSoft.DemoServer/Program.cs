@@ -1,9 +1,19 @@
-﻿using ThreadPool = CustomSoft.ThreadPool.ThreadPool;
+﻿using CustomSoft.DependencyInjection;
+using CustomSoft.DependencyInjection.Abstractions;
+using ThreadPool = CustomSoft.ThreadPool.ThreadPool;
 
-ThreadPool customThreadPool = new();
 
-customThreadPool.Queue(() => Console.WriteLine($"1"));
-customThreadPool.Queue(() => Console.WriteLine($"2"));
-customThreadPool.Queue(() => Console.WriteLine($"3"));
+IServiceProviderBuilder providerBuilder = new ServiceProviderBuilder();
+var provider = providerBuilder.AddSingleton<ThreadPool>().Build();
 
+ThreadPool customThreadPool = provider.GetService<ThreadPool>();
+
+customThreadPool.Queue(() => { Thread.Sleep(2000); Console.WriteLine($"{Thread.CurrentThread.Name} 1"); });
+customThreadPool.Queue(() => Console.WriteLine($"{Thread.CurrentThread.Name} 2"));
+customThreadPool.Queue(() => Console.WriteLine($"{Thread.CurrentThread.Name} 3"));
+
+var testThreadPool = provider.GetService<ThreadPool>();
+Console.WriteLine(testThreadPool.GetHashCode() == customThreadPool.GetHashCode()); /// True
+
+customThreadPool.Dispose();
 Console.ReadKey();

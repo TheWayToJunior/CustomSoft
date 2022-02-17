@@ -5,7 +5,7 @@ namespace CustomSoft.DependencyInjection
     public class SingletonDependence : IDependence
     {
         private object? _instance;
-        private static object _suncRoot = new();
+        private static readonly object _suncRoot = new();
 
         private readonly IDependencyResolver _resolver;
 

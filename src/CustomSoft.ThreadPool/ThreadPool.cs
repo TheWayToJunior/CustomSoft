@@ -13,8 +13,17 @@
         /// <summary>
         /// Initializes the pool with the specified number of threads
         /// </summary>
+        /// <remarks>The default number of threads is 4</remarks>
+        public ThreadPool()
+            : this(countThreads: 4)
+        {
+        }
+
+        /// <summary>
+        /// Initializes the pool with the specified number of threads
+        /// </summary>
         /// <param name="countThreads">Number of threads</param>
-        public ThreadPool(int countThreads = 4)
+        public ThreadPool(int countThreads)
         {
             _threads = new Thread[countThreads];
             _queueTasks = new Queue<Action>();
