@@ -8,14 +8,24 @@
     {
     }
 
+    internal class ComplexTestService
+    {
+        public ComplexTestService(SimpleTestService service)
+        {
+            Service = service;
+        }
+
+        public SimpleTestService Service { get; }
+    }
+
     internal interface IComplexTestService
     {
         ISimpleTestService Service { get; }
     }
 
-    internal class ComplexTestService : IComplexTestService
+    internal class ComplexTestServiceAbstractDependencies : IComplexTestService
     {
-        public ComplexTestService(ISimpleTestService service)
+        public ComplexTestServiceAbstractDependencies(ISimpleTestService service)
         {
             Service = service;
         }

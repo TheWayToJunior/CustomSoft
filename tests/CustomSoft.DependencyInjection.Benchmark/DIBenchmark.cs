@@ -7,8 +7,12 @@ namespace CustomSoft.DependencyInjection.Benchmark
     [MemoryDiagnoser]
     public class DIBenchmark
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor.
+
         private Abstractions.IServiceProvider _customProvider;
         private System.IServiceProvider _systemProvider;
+
+#pragma warning restore CS8618
 
         [GlobalSetup]
         public void Setup()

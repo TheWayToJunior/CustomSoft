@@ -1,4 +1,5 @@
 ﻿using CustomSoft.DependencyInjection.Abstractions;
+using CustomSoft.DependencyInjection.Exceptions;
 
 namespace CustomSoft.DependencyInjection
 {
@@ -13,15 +14,22 @@ namespace CustomSoft.DependencyInjection
 
         public T GetService<T>()
         {
-            return (T)(GetService(typeof(T)) ?? throw new Exception());
+            var type = typeof(T);
+
+            return (T)(GetService(type) 
+                ?? throw new InvalidOperationException($"Failed to create an instance of the {type.FullName}"));
         }
 
         public object? GetService(Type type)
         {
+            if(type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             if (!_dependences.TryGetValue(type, out var model))
             {
-                /// TODO: Create a suitable exception
-                throw new Exception();
+                throw new UnregisteredDependencyException(type.FullName ?? type.Name);
             }
 
             return model.GetInstance(this);

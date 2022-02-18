@@ -6,7 +6,6 @@
     {
         public SecondTestSimpleService(FirstTestSimpleService service)
         {
-
         }
     }
 
@@ -14,7 +13,6 @@
     {
         public TestService(FirstTestSimpleService service1, SecondTestSimpleService service2)
         {
-
         }
     }
 }

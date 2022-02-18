@@ -20,7 +20,7 @@ namespace CustomSoft.DependencyInjection
 
             if (constructor is null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Could not get information about the constructor");
             }
 
             IEnumerable<Type> parameterTypes = constructor.GetParameters()

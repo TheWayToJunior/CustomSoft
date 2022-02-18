@@ -1,4 +1,5 @@
 using CustomSoft.DependencyInjection.Abstractions;
+using CustomSoft.DependencyInjection.Exceptions;
 using Xunit;
 
 namespace CustomSoft.DependencyInjection.Tests
@@ -107,7 +108,7 @@ namespace CustomSoft.DependencyInjection.Tests
 
             IServiceProvider provider = builder
                 .AddSingleton<ISimpleTestService, SimpleTestService>()
-                .AddSingleton<IComplexTestService, ComplexTestService>()
+                .AddSingleton<IComplexTestService, ComplexTestServiceAbstractDependencies>()
                 .Build();
 
             /// Act
@@ -115,10 +116,31 @@ namespace CustomSoft.DependencyInjection.Tests
 
             /// Assert
             Assert.NotNull(complexService);
-            Assert.IsType<ComplexTestService>(complexService);
+            Assert.IsType<ComplexTestServiceAbstractDependencies>(complexService);
 
             Assert.NotNull(complexService.Service);
             Assert.IsType<SimpleTestService>(complexService.Service);
+        }
+
+        [Fact]
+        public void GetService_AddSingletonIComplexTestService_ThrowUnregisteredDependencyException()
+        {
+            /// Arrange
+            IServiceProviderBuilder builder = new ServiceProviderBuilder();
+
+            IServiceProvider provider = builder
+                .AddSingleton<IComplexTestService, ComplexTestServiceAbstractDependencies>()
+                .Build();
+
+            var dependencyName = typeof(ISimpleTestService).FullName;
+
+            /// Act
+            var getService = () => provider.GetService<IComplexTestService>();
+
+            /// Assert
+            var exception = Assert.Throws<UnregisteredDependencyException>(getService);
+            Assert.Equal(dependencyName, exception.DependencyName);
+            Assert.Equal($"The dependency was not registered in the container {dependencyName}", exception.Message);
         }
     }
 }
