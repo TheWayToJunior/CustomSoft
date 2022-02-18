@@ -1,4 +1,4 @@
-# Custom Soft
+# Custom Dependency Injection
 ## Overview
 Simple custom implementation of the dependency container. At the moment, it is not recommended for use in real projects, as it is limited in functionality
 
