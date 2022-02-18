@@ -20,3 +20,8 @@ Building a dependency container
 ```csharp
 IServiceProvider provider = providerBuilder.Build();
 ```
+
+Getting an instance is necessary for the service
+```csharp
+IComplexService service = provider.GetService<IComplexService>();
+```
