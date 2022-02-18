@@ -7,6 +7,12 @@ namespace CustomSoft.DependencyInjection
     {
         public IServiceProvider? ServiceProvider { get; set; }
 
+        /// <summary>
+        /// Creates a new instance of the service with all recursive dependencies
+        /// </summary>
+        /// <param name="type">Type of service</param>
+        /// <param name="serviceProvider">Dependency сontainer</param>
+        /// <returns></returns>
         public object? Resolve(Type type, IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
