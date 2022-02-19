@@ -13,7 +13,7 @@ IServiceProviderBuilder providerBuilder = new ServiceProviderBuilder();
 Performing registration of services
 ```csharp
 providerBuilder.AddTransient<SimpleService>();
-providerBuilder.AddSingleton<IComplexService, IComplexService>();
+providerBuilder.AddSingleton<IComplexService, ComplexService>();
 ```
 
 Building a dependency container
