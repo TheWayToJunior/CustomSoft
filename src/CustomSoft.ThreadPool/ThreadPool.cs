@@ -56,20 +56,15 @@
                 Monitor.Enter(_syncRoot);
                 try
                 {
-                    if (_queueTasks.Count > 0)
+                    if (_queueTasks.Count <= 0)
                     {
-                        action = _queueTasks.Dequeue();
-                    }
-                    else
-                    {
-                        if (IsDisposed)
-                        {
-                            return;
-                        }
+                        if (IsDisposed) return;
 
                         Monitor.Wait(_syncRoot);
                         continue;
                     }
+
+                    action = _queueTasks.Dequeue();
                 }
                 finally
                 {
