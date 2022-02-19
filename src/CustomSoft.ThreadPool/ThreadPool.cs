@@ -101,30 +101,32 @@
         /// </summary>
         public void Dispose()
         {
-            if (!IsDisposed)
+            if (IsDisposed)
             {
-                bool isDisposing = false;
-                Monitor.Enter(_syncRoot);
-                try
-                {
-                    if (!IsDisposed)
-                    {
-                        IsDisposed = true;
-                        Monitor.PulseAll(_syncRoot);
-                        isDisposing = true;
-                    }
-                }
-                finally
-                {
-                    Monitor.Exit(_syncRoot);
-                }
+                return;
+            }
 
-                if (isDisposing)
+            bool isDisposing = false;
+            Monitor.Enter(_syncRoot);
+            try
+            {
+                if (!IsDisposed)
                 {
-                    for (int i = 0; i < _threads.Length; ++i)
-                    {
-                        _threads[i].Join();
-                    }
+                    IsDisposed = true;
+                    Monitor.PulseAll(_syncRoot);
+                    isDisposing = true;
+                }
+            }
+            finally
+            {
+                Monitor.Exit(_syncRoot);
+            }
+
+            if (isDisposing)
+            {
+                for (int i = 0; i < _threads.Length; ++i)
+                {
+                    _threads[i].Join();
                 }
             }
         }
