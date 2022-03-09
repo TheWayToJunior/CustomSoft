@@ -1,4 +1,4 @@
-﻿namespace CustomSoft.ThreadPool
+﻿namespace CustomSoft.Threading
 {
     /// <summary>
     /// Custom thread pool implementation
@@ -33,7 +33,7 @@
                 _threads[i] = new Thread(ThreadProc)
                 {
                     IsBackground = true,
-                    Name = Guid.NewGuid().ToString()
+                    Name = $"Custom ThreadPool Worker: {i}"
                 };
 
                 _threads[i].Start();
@@ -87,7 +87,7 @@
 
                 if (_queueTasks.Count == 1)
                 {
-                    Monitor.Pulse(_syncRoot);
+                    Monitor.PulseAll(_syncRoot); /// Pulse(_syncRoot)
                 }
             }
             finally
@@ -123,10 +123,10 @@
             }
 
             if (isDisposing)
-            {
-                for (int i = 0; i < _threads.Length; ++i)
+            { 
+                foreach (var thread in _threads)
                 {
-                    _threads[i].Join();
+                    thread.Join();
                 }
             }
         }

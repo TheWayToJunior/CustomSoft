@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CustomSoft.DependencyInjection\CustomSoft.DependencyInjection.csproj" />
+    <ProjectReference Include="..\CustomSoft.Threading\CustomSoft.Threading.csproj" />
+  </ItemGroup>
+
 </Project>

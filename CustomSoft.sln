@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomSoft.ThreadPool", "src\CustomSoft.ThreadPool\CustomSoft.ThreadPool.csproj", "{1C24BD76-1035-4AD8-94DC-BAFCFC63A730}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomSoft.WebServer", "src\CustomSoft.WebServer\CustomSoft.WebServer.csproj", "{D80F1401-064B-440A-8961-E24B5AB2B013}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomSoft.DependencyInjection", "src\CustomSoft.DependencyInjection\CustomSoft.DependencyInjection.csproj", "{0FB2E57A-23D7-4E05-9D4E-2FA97BCD528D}"
@@ -17,7 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{95F09413
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2C36B7DE-113F-41DE-BD4D-3DED5B85BB88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSoft.DependencyInjection.Benchmark", "tests\CustomSoft.DependencyInjection.Benchmark\CustomSoft.DependencyInjection.Benchmark.csproj", "{EBC74712-A41A-400F-857F-527EA6CFEBB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomSoft.DependencyInjection.Benchmark", "tests\CustomSoft.DependencyInjection.Benchmark\CustomSoft.DependencyInjection.Benchmark.csproj", "{EBC74712-A41A-400F-857F-527EA6CFEBB4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomSoft.Threading", "src\CustomSoft.Threading\CustomSoft.Threading.csproj", "{12034916-905E-4AC7-98B2-5AA0A39B4748}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomSoft.WebServer.Tests", "tests\CustomSoft.WebServer.Tests\CustomSoft.WebServer.Tests.csproj", "{223043D2-44B9-45A5-A88B-49ADC903052A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1C24BD76-1035-4AD8-94DC-BAFCFC63A730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C24BD76-1035-4AD8-94DC-BAFCFC63A730}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C24BD76-1035-4AD8-94DC-BAFCFC63A730}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C24BD76-1035-4AD8-94DC-BAFCFC63A730}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D80F1401-064B-440A-8961-E24B5AB2B013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D80F1401-064B-440A-8961-E24B5AB2B013}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D80F1401-064B-440A-8961-E24B5AB2B013}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,16 +47,25 @@ Global
 		{EBC74712-A41A-400F-857F-527EA6CFEBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC74712-A41A-400F-857F-527EA6CFEBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBC74712-A41A-400F-857F-527EA6CFEBB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12034916-905E-4AC7-98B2-5AA0A39B4748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12034916-905E-4AC7-98B2-5AA0A39B4748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12034916-905E-4AC7-98B2-5AA0A39B4748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12034916-905E-4AC7-98B2-5AA0A39B4748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{223043D2-44B9-45A5-A88B-49ADC903052A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{223043D2-44B9-45A5-A88B-49ADC903052A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{223043D2-44B9-45A5-A88B-49ADC903052A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{223043D2-44B9-45A5-A88B-49ADC903052A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1C24BD76-1035-4AD8-94DC-BAFCFC63A730} = {2C36B7DE-113F-41DE-BD4D-3DED5B85BB88}
 		{D80F1401-064B-440A-8961-E24B5AB2B013} = {2C36B7DE-113F-41DE-BD4D-3DED5B85BB88}
 		{0FB2E57A-23D7-4E05-9D4E-2FA97BCD528D} = {2C36B7DE-113F-41DE-BD4D-3DED5B85BB88}
 		{EC96225C-9F75-498B-AF66-99ED03137115} = {95F09413-E0E2-4CA2-9093-8A807B217334}
 		{EBC74712-A41A-400F-857F-527EA6CFEBB4} = {95F09413-E0E2-4CA2-9093-8A807B217334}
+		{12034916-905E-4AC7-98B2-5AA0A39B4748} = {2C36B7DE-113F-41DE-BD4D-3DED5B85BB88}
+		{223043D2-44B9-45A5-A88B-49ADC903052A} = {95F09413-E0E2-4CA2-9093-8A807B217334}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC4DF808-AA29-46A5-8E38-2921F2AB34B5}
