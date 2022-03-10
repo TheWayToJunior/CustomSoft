@@ -3,23 +3,29 @@ using System.Collections.Concurrent;
 
 namespace CustomSoft.WebServer
 {
-    public class RoutService : IRoutService
+    public class RouteService : IRouteService
     {
         private readonly ConcurrentDictionary<string, ICollection<IHttpMap>> _methodMaps;
 
         private static readonly object _syncRoot = new();
 
-        public RoutService()
+        public RouteService()
         {
             _methodMaps = new();
         }
 
-        public IHttpMap ChooseRout(string route)
+        public IHttpMap ChooseRoute(string method, string route)
         {
-            throw new NotImplementedException();
+            if(!_methodMaps.TryGetValue(method, out ICollection<IHttpMap>? maps))
+            {
+                throw new ArgumentException();
+            }
+
+            /// TODO: Write an algorithm for parsing route templates
+            return maps.Single(map => map.Url == route);
         }
 
-        public void CreateRout(string method, IHttpMap map)
+        public void CreateRoute(string method, IHttpMap map)
         {
             if(map is null)
             {

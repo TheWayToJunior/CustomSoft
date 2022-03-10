@@ -16,8 +16,8 @@ namespace CustomSoft.WebServer
         protected virtual IServiceProviderBuilder CreateServicesBuilder() =>
             new ServiceProviderBuilder();
 
-        protected virtual IRoutService CreateRouter() =>
-            new RoutService();
+        protected virtual IRouteService CreateRouter() =>
+            new RouteService();
 
         public IWebApplication Build()
         {

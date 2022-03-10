@@ -13,20 +13,15 @@ namespace CustomSoft.WebServer
         private readonly ThreadPool _threadPool;
 
         private readonly IServiceProviderBuilder _services;
-        private readonly IRoutService _router;
+        private readonly IRouteService _router;
 
-        public WebApplication(IServiceProviderBuilder services, IRoutService router)
+        public WebApplication(IServiceProviderBuilder services, IRouteService router)
         {
             _services = services;
             _router = router;
 
             _listener = new();
             _threadPool = new(countThreads: 5);
-        }
-
-        public void Stop()
-        {
-            _listener.Stop();
         }
 
         public async Task Run()
@@ -78,7 +73,7 @@ namespace CustomSoft.WebServer
                 throw new ArgumentNullException(nameof(map));
             }
 
-            _router.CreateRout(method, map);
+            _router.CreateRoute(method, map);
         }
     }
 }
