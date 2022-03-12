@@ -19,9 +19,15 @@ namespace CustomSoft.WebServer
         protected virtual IRouteService CreateRouter() =>
             new RouteService();
 
+        protected virtual IParameterFactory CreateParameterFactory(IServiceProvider service) =>
+            new ParameterFactory(service);
+
         public IWebApplication Build()
         {
-            return new WebApplication(Services, CreateRouter());
+            IServiceProvider service = Services
+                .Build();
+
+            return new WebApplication(CreateParameterFactory(service), CreateRouter());
         }
     }
 }

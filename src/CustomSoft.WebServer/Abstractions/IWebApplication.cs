@@ -4,6 +4,6 @@
     {
         void Map(string method, IHttpMap map); 
             
-        Task Run();
+        Task RunAsync();
     }
 }

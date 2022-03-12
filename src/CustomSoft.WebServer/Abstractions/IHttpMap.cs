@@ -2,8 +2,8 @@
 {
     public interface IHttpMap
     {
-        string Url { get; }
+        string UrlTemplate { get; }
 
-        Delegate Method { get; }
+        Delegate Hanlder { get; }
     }
 }

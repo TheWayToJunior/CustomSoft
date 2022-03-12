@@ -24,7 +24,7 @@ app.HttpPost("models/create", ([FromBody] object model, [FromService] object rep
     return Results.Ok();
 });
 
-await app.Run();
+await app.RunAsync();
 
 #region DI & ThreadPool
 

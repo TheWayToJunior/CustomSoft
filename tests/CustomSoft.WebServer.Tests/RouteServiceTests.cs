@@ -4,7 +4,7 @@ using Xunit;
 
 namespace CustomSoft.WebServer.Tests
 {
-    public class RouteServiceTest
+    public class RouteServiceTests
     {
         [Fact]
         public void ChooseRoute_CreateSimpleTemplateRoute_SuccessfulHttpMap()
@@ -20,8 +20,8 @@ namespace CustomSoft.WebServer.Tests
 
             /// Assert
             Assert.NotNull(map);
-            Assert.NotEmpty(map.Url);
-            Assert.Equal(route, map.Url);
+            Assert.NotEmpty(map.UrlTemplate);
+            Assert.Equal(route, map.UrlTemplate);
         }
 
         [Fact]
@@ -29,18 +29,18 @@ namespace CustomSoft.WebServer.Tests
         {
             /// Arrange
             string requestRoute = "tests/rout/1";
-            string actualRout = "tests/rout/{id}";
+            string templateRout = "tests/rout/{id}";
 
             RouteService router = new();
-            router.CreateRoute(HttpMethods.Get, new HttpMap(actualRout, () => { }));
+            router.CreateRoute(HttpMethods.Get, new HttpMap(templateRout, () => { }));
 
             /// Act
             IHttpMap map = router.ChooseRoute(HttpMethods.Get, requestRoute);
 
             /// Assert
             Assert.NotNull(map);
-            Assert.NotEmpty(map.Url);
-            Assert.Equal(actualRout, map.Url);
+            Assert.NotEmpty(map.UrlTemplate);
+            Assert.Equal(templateRout, map.UrlTemplate);
         }
     }
 }

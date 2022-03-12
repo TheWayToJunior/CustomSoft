@@ -22,7 +22,7 @@ namespace CustomSoft.WebServer
             }
 
             /// TODO: Write an algorithm for parsing route templates
-            return maps.Single(map => map.Url == route);
+            return maps.Single(map => map.UrlTemplate == route);
         }
 
         public void CreateRoute(string method, IHttpMap map)

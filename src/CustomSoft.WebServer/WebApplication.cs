@@ -1,9 +1,6 @@
-﻿using CustomSoft.DependencyInjection.Abstractions;
-using CustomSoft.WebServer.Abstractions;
+﻿using CustomSoft.WebServer.Abstractions;
 using System.Net;
 using System.Text;
-
-using ThreadPool = CustomSoft.Threading.ThreadPool;
 
 namespace CustomSoft.WebServer
 {
@@ -12,19 +9,19 @@ namespace CustomSoft.WebServer
         private readonly HttpListener _listener;
         private readonly ThreadPool _threadPool;
 
-        private readonly IServiceProviderBuilder _services;
+        private readonly IParameterFactory _parameterFactory;
         private readonly IRouteService _router;
 
-        public WebApplication(IServiceProviderBuilder services, IRouteService router)
+        public WebApplication(IParameterFactory parameterFactory, IRouteService router)
         {
-            _services = services;
-            _router = router;
+            _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
+            _router = router ?? throw new ArgumentNullException(nameof(router));
 
             _listener = new();
             _threadPool = new(countThreads: 5);
         }
 
-        public async Task Run()
+        public async Task RunAsync()
         {
             _listener.Prefixes.Add("http://localhost:5000/");
             _listener.Start();
@@ -40,14 +37,18 @@ namespace CustomSoft.WebServer
             while (_listener.IsListening)
             {
                 var context = await _listener.GetContextAsync().ConfigureAwait(false);
-                _threadPool.Queue(async () => await HandelHttpContextAsync(context));
+                _threadPool.Queue(async () => await HandeleHttpContextAsync(context));
             }
         }
 
-        private async Task HandelHttpContextAsync(HttpListenerContext context)
+        private async Task HandeleHttpContextAsync(HttpListenerContext context)
         {
             var response = context.Response;
             var request = context.Request;
+
+            //IHttpMap map = _router.ChooseRoute(request.HttpMethod, request.RawUrl); /// !!!
+            //IEnumerable<object?> parameters = _parameterFactory.CreateHandlerParameters(map.Hanlder.Method);
+            //map.Hanlder.Method.Invoke(map.Hanlder.Method, parameters.ToArray());
 
             byte[] data = Encoding.UTF8.GetBytes($"{Thread.CurrentThread.Name}: Hello World!!!");
 
@@ -55,7 +56,7 @@ namespace CustomSoft.WebServer
             response.ContentEncoding = Encoding.UTF8;
             response.ContentLength64 = data.LongLength;
             response.StatusCode = (int)HttpStatusCode.OK;
-            
+
             int.TryParse(request.QueryString["delay"], out var delay);
             Thread.Sleep(delay);
 

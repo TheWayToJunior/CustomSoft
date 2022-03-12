@@ -2,5 +2,5 @@
 
 namespace CustomSoft.WebServer.Models
 {
-    public record HttpMap(string Url, Delegate Method) : IHttpMap;
+    public record HttpMap(string UrlTemplate, Delegate Hanlder) : IHttpMap;
 }
